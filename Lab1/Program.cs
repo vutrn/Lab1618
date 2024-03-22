@@ -79,9 +79,15 @@
 
 	  if (minplus30 >= 60 && hour >= 23)
 	  {
-		int remain = minplus30 - 60;
+		int minRemain = minplus30 - 60;
 		hour = 0;
-		Console.Write($"{hour}:{remain}");
+		Console.Write($"{hour}:{minRemain}");
+	  }
+	  else if(minplus30 >= 60)
+	  {
+		int minRemain = minplus30 - 60;
+		hour++;
+		Console.Write($"{hour}:{minRemain}");
 	  }
 	  else
 	  {
@@ -89,8 +95,7 @@
 	  }
 
 
-
-	  Console.ReadKey();
+	  //Console.ReadKey();
 	}
   }
 }
