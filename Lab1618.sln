@@ -3,9 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab1", "Lab1\Lab1.csproj", "{E225634D-002F-411B-93E5-1FCEDC62D571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab1", "Lab1\Lab1.csproj", "{E225634D-002F-411B-93E5-1FCEDC62D571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFTest", "WFTest\WFTest.csproj", "{668B01E7-51B4-460E-ACAD-BE482ABD9471}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WFTest", "WFTest\WFTest.csproj", "{668B01E7-51B4-460E-ACAD-BE482ABD9471}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab2", "Lab2\Lab2.csproj", "{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26ADA544-EF72-4E53-A970-52A12CA78F28}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooManagement", "ZooManagement\ZooManagement.csproj", "{8DFC88B0-56E4-494B-A0ED-361C51369758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAsm", "..\1651-MyAsm\MyAsm.csproj", "{3F2A94BA-F9D0-48E5-9087-E747CCD854B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +32,18 @@ Global
 		{668B01E7-51B4-460E-ACAD-BE482ABD9471}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{668B01E7-51B4-460E-ACAD-BE482ABD9471}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{668B01E7-51B4-460E-ACAD-BE482ABD9471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DFC88B0-56E4-494B-A0ED-361C51369758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DFC88B0-56E4-494B-A0ED-361C51369758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DFC88B0-56E4-494B-A0ED-361C51369758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DFC88B0-56E4-494B-A0ED-361C51369758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F2A94BA-F9D0-48E5-9087-E747CCD854B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F2A94BA-F9D0-48E5-9087-E747CCD854B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F2A94BA-F9D0-48E5-9087-E747CCD854B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F2A94BA-F9D0-48E5-9087-E747CCD854B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
