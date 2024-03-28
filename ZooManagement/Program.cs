@@ -1,31 +1,60 @@
-﻿
-namespace ZooManagement
+﻿using ZooManagement;
+
+Animal animal = new Animal();
+animal.Sample();
+
+int choice = 0;
+do
 {
-  internal class Program
-  {
-	static void Main(string[] args)
-	{
-	  SqlConnection sqlConnection;
-	  string connectionString = @"Data Source=DESKTOP-KCB2BH6\MSSQLSERVER02;Initial Catalog=studentCRUD;Integrated Security=True";
+    Console.WriteLine("------------Zoo Manager------------");
+    animal.ViewAnimals();
+    Console.WriteLine();
+    Console.WriteLine("Select an action:");
+    Console.WriteLine("1. Create an animal");
+    Console.WriteLine("2. Update");
+    Console.WriteLine("3. Search");
+    Console.WriteLine("4. Delete");
+    Console.WriteLine("0. Exit");
 
-	  sqlConnection = new SqlConnection(connectionString);
-	  sqlConnection.Open();
+    Console.Write("Select an option: ");
+    string input = Console.ReadLine();
 
-	  string delete = "delete record ";
-	  SqlCommand deletequery = new SqlCommand(delete, sqlConnection);
+    switch (input)
+    {
+        case "1":
+            animal.CreateAnimal();
+            Console.ReadKey();
+            Console.Clear();
+            break;
+        case "2":
+            animal.UpdateAnimal();
+            Console.ReadKey();
+            Console.Clear();
+            break;
+        case "3":
+            animal.Search();
+            Console.ReadKey();
+            Console.Clear();
+            break;
+        case "4":
+            animal.DeleteAnimal();
+            Console.ReadKey();
+            Console.Clear();
+            break;
+        case "0":
+            Console.WriteLine("Goodbye!");
+            Console.ReadKey();
+            Environment.Exit(0);
+            break;
+        default:
+            Console.WriteLine("Invalid option. Please try again.");
+            Console.ReadKey();
+            Console.Clear();
+            break;
+    }
+} while (!(choice >= 1 && choice <= 3));
 
-	  deletequery.ExecuteNonQuery();
 
 
 
 
-	  sqlConnection.Close();
-
-
-
-
-
-	  Console.ReadKey();
-	}
-  }
-}
