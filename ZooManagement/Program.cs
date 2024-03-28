@@ -6,7 +6,7 @@ animal.Sample();
 int choice = 0;
 do
 {
-    Console.WriteLine("------------Zoo Manager------------");
+    Console.WriteLine("------------Animal Manager------------");
     animal.ViewAnimals();
     Console.WriteLine();
     Console.WriteLine("Select an action:");
