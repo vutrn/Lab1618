@@ -188,7 +188,7 @@ public class Animal
             {
                 Console.WriteLine("Species cannot be blank. Please try again.");
             }
-        } while (string.IsNullOrWhiteSpace(Species));
+        } while (string.IsNullOrWhiteSpace(newSpecies));
 
         Console.Write("New Description: ");
         string newDesc = Console.ReadLine();
