@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab3", "Lab3\Lab3.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab4", "Lab4\Lab4.csproj", "{87CD38D0-9184-48C8-9CC8-D96D69513FC1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZooManagement", "ZooManagement\ZooManagement.csproj", "{C8BA0383-4F7C-4E22-A892-446C6AD7D885}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{87CD38D0-9184-48C8-9CC8-D96D69513FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87CD38D0-9184-48C8-9CC8-D96D69513FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87CD38D0-9184-48C8-9CC8-D96D69513FC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8BA0383-4F7C-4E22-A892-446C6AD7D885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8BA0383-4F7C-4E22-A892-446C6AD7D885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8BA0383-4F7C-4E22-A892-446C6AD7D885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8BA0383-4F7C-4E22-A892-446C6AD7D885}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

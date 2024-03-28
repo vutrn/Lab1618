@@ -99,7 +99,6 @@ public class Animal
 
     public void ViewAnimals()
     {
-
         if (Animals.Count == 0)
         {
             Console.WriteLine("No animals found.");
@@ -180,7 +179,7 @@ public class Animal
         string newSpecies = Console.ReadLine();
         do
         {
-            if (!string.IsNullOrWhiteSpace(Species))
+            if (!string.IsNullOrWhiteSpace(newSpecies))
             {
                 animal.Species = newSpecies;
             }
