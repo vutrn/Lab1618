@@ -165,7 +165,7 @@ public class Animal
         var newGender = byte.Parse(Console.ReadLine());
         do
         {
-            if (Gender == 1 || Gender == 2 || Gender == 3)
+            if (newGender == 1 || newGender == 2 || newGender == 3)
             {
                 isValidGender = true;
                 animal.Gender = newGender;

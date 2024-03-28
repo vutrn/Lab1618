@@ -5,20 +5,20 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab1", "Lab1\Lab1.csproj", "{E225634D-002F-411B-93E5-1FCEDC62D571}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WFTest", "WFTest\WFTest.csproj", "{668B01E7-51B4-460E-ACAD-BE482ABD9471}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab2", "Lab2\Lab2.csproj", "{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab2", "Lab2\Lab2.csproj", "{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26ADA544-EF72-4E53-A970-52A12CA78F28}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooManagement", "ZooManagement\ZooManagement.csproj", "{8DFC88B0-56E4-494B-A0ED-361C51369758}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalManagement", "ZooManagement\AnimalManagement.csproj", "{8DFC88B0-56E4-494B-A0ED-361C51369758}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAsm", "..\1651-MyAsm\MyAsm.csproj", "{3F2A94BA-F9D0-48E5-9087-E747CCD854B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab3", "Lab3\Lab3.csproj", "{28F2AB9E-3491-4B09-B676-AFA8D5CCED8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab3", "Lab3\Lab3.csproj", "{28F2AB9E-3491-4B09-B676-AFA8D5CCED8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab4", "Lab4\Lab4.csproj", "{87CD38D0-9184-48C8-9CC8-D96D69513FC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +30,6 @@ Global
 		{E225634D-002F-411B-93E5-1FCEDC62D571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E225634D-002F-411B-93E5-1FCEDC62D571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E225634D-002F-411B-93E5-1FCEDC62D571}.Release|Any CPU.Build.0 = Release|Any CPU
-		{668B01E7-51B4-460E-ACAD-BE482ABD9471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{668B01E7-51B4-460E-ACAD-BE482ABD9471}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{668B01E7-51B4-460E-ACAD-BE482ABD9471}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{668B01E7-51B4-460E-ACAD-BE482ABD9471}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52C236C2-E081-4BB5-B6E5-85E23CD7E02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +46,10 @@ Global
 		{28F2AB9E-3491-4B09-B676-AFA8D5CCED8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28F2AB9E-3491-4B09-B676-AFA8D5CCED8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28F2AB9E-3491-4B09-B676-AFA8D5CCED8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87CD38D0-9184-48C8-9CC8-D96D69513FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87CD38D0-9184-48C8-9CC8-D96D69513FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87CD38D0-9184-48C8-9CC8-D96D69513FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87CD38D0-9184-48C8-9CC8-D96D69513FC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
