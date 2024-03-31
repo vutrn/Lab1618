@@ -1,6 +1,6 @@
 ﻿namespace Lab4
 {
-  partial class Form1
+  partial class Login
   {
 	/// <summary>
 	///  Required designer variable.
@@ -32,26 +32,26 @@
 	  tb_password = new TextBox();
 	  btn_login = new Button();
 	  lb_banner = new Label();
+	  btn_register = new Button();
 	  SuspendLayout();
 	  // 
 	  // tb_username
 	  // 
-	  tb_username.Location = new Point(94, 69);
+	  tb_username.Location = new Point(124, 68);
 	  tb_username.Name = "tb_username";
 	  tb_username.Size = new Size(100, 23);
 	  tb_username.TabIndex = 0;
-	  tb_username.TextChanged += textBox1_TextChanged;
 	  // 
 	  // tb_password
 	  // 
-	  tb_password.Location = new Point(94, 114);
+	  tb_password.Location = new Point(124, 111);
 	  tb_password.Name = "tb_password";
 	  tb_password.Size = new Size(100, 23);
 	  tb_password.TabIndex = 1;
 	  // 
 	  // btn_login
 	  // 
-	  btn_login.Location = new Point(104, 180);
+	  btn_login.Location = new Point(80, 164);
 	  btn_login.Name = "btn_login";
 	  btn_login.Size = new Size(75, 23);
 	  btn_login.TabIndex = 2;
@@ -62,25 +62,35 @@
 	  // lb_banner
 	  // 
 	  lb_banner.AutoSize = true;
-	  lb_banner.Location = new Point(80, 27);
+	  lb_banner.Location = new Point(144, 20);
 	  lb_banner.Name = "lb_banner";
 	  lb_banner.Size = new Size(57, 15);
 	  lb_banner.TabIndex = 3;
 	  lb_banner.Text = "Welcome";
-	  lb_banner.Click += lb_banner_Click;
 	  // 
-	  // Form1
+	  // btn_register
+	  // 
+	  btn_register.Location = new Point(186, 164);
+	  btn_register.Name = "btn_register";
+	  btn_register.Size = new Size(75, 23);
+	  btn_register.TabIndex = 4;
+	  btn_register.Text = "Register";
+	  btn_register.UseVisualStyleBackColor = true;
+	  btn_register.Click += btn_register_Click;
+	  // 
+	  // Login
 	  // 
 	  AutoScaleDimensions = new SizeF(7F, 15F);
 	  AutoScaleMode = AutoScaleMode.Font;
-	  ClientSize = new Size(800, 450);
+	  ClientSize = new Size(351, 254);
+	  Controls.Add(btn_register);
 	  Controls.Add(lb_banner);
 	  Controls.Add(btn_login);
 	  Controls.Add(tb_password);
 	  Controls.Add(tb_username);
-	  Name = "Form1";
-	  Text = "Form1";
-	  Load += Form1_Load;
+	  Name = "Login";
+	  StartPosition = FormStartPosition.CenterScreen;
+	  Text = "Login";
 	  ResumeLayout(false);
 	  PerformLayout();
 	}
@@ -91,5 +101,6 @@
 	private TextBox tb_password;
 	private Button btn_login;
 	private Label lb_banner;
+	private Button btn_register;
   }
 }

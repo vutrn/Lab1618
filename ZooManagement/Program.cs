@@ -2,7 +2,6 @@
 
 Animal animal = new Animal();
 animal.Sample();
-
 int choice = 0;
 do
 {
@@ -15,10 +14,8 @@ do
     Console.WriteLine("3. Search");
     Console.WriteLine("4. Delete");
     Console.WriteLine("0. Exit");
-
     Console.Write("Select an option: ");
     string input = Console.ReadLine();
-
     switch (input)
     {
         case "1":

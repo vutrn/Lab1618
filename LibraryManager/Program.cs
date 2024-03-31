@@ -1,4 +1,4 @@
-namespace Lab4
+namespace LibraryManager
 {
   internal static class Program
   {
@@ -11,8 +11,8 @@ namespace Lab4
 	  // To customize application configuration such as set high DPI settings or default font,
 	  // see https://aka.ms/applicationconfiguration.
 	  ApplicationConfiguration.Initialize();
-	  //Application.Run(new Admin());
-	  Application.Run(new Student());
+	  //Application.Run(new Login());
+	  Application.Run(new Admin());
 
 	}
   }

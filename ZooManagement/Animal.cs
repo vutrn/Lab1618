@@ -10,9 +10,7 @@ public class Animal
     private string Desc { get; set; }
     private List<Animal> Animals = new List<Animal>();
     private static int COUNT = 101;
-
     public Animal() { }
-
     public Animal(string name, int age, byte gender, string species, string desc)
     {
         Id = COUNT++;
@@ -22,13 +20,12 @@ public class Animal
         Species = species;
         Desc = desc;
     }
-
     public void Sample()
     {
         Animals = new List<Animal>
         {
             new Animal("Pikun", 2, 1, "Cat", "Cute"),
-            new Animal("Phong", 21, 1, "Monkey", "Ngu")
+            new Animal("Phong", 21, 1, "Monkey", "")
         };
     }
 

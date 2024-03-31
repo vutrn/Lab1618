@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab4", "Lab4\Lab4.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZooManagement", "ZooManagement\ZooManagement.csproj", "{C8BA0383-4F7C-4E22-A892-446C6AD7D885}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryManager", "LibraryManager\LibraryManager.csproj", "{58ACA784-8A3C-49C1-923D-75E3BED6902D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{C8BA0383-4F7C-4E22-A892-446C6AD7D885}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8BA0383-4F7C-4E22-A892-446C6AD7D885}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8BA0383-4F7C-4E22-A892-446C6AD7D885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58ACA784-8A3C-49C1-923D-75E3BED6902D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58ACA784-8A3C-49C1-923D-75E3BED6902D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58ACA784-8A3C-49C1-923D-75E3BED6902D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58ACA784-8A3C-49C1-923D-75E3BED6902D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

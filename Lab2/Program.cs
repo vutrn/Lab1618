@@ -4,18 +4,20 @@
   {
 	static void Main(string[] args)
 	{
-	  Functions.for_example();
-	  int A = 1;
-	  int B = 2;
-	  int C = A + B;
-	  Console.WriteLine(C);
- 
-	  
-
- 
-
-
-	  Console.ReadKey();
+	  int[] arr = { 5, 7, 3, 8, 2, 7, 1 };
+	  int temp = arr[0];
+	  for (int i = 0; i < arr.Length; i++)
+	  {
+		for (int j = i + 1; j < arr.Length; j++)
+		{
+		  if (arr[i] > arr[j])
+		  {
+			temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+		  }
+		}
+	  }
 	}
   }
 }
