@@ -9,9 +9,27 @@ namespace LibraryManager
 	  InitializeComponent();
 	}
 
-	private void Login_Load(object sender, EventArgs e)
+	private void btn_admin_page_Click(object sender, EventArgs e)
 	{
-	   
+	  //this.Hide();
+
+	  Admin admin = new Admin();
+	  admin.Show();
+
+	  this.Hide();
+
 	}
+
+	private void btn_student_page_Click(object sender, EventArgs e)
+	{
+	  this.Hide();
+
+	  Student std = new Student();
+	  std.Show();
+
+	  this.Hide();
+
+	}
+
   }
 }

@@ -16,5 +16,23 @@ namespace LibraryManager
 	{
 	  InitializeComponent();
 	}
+
+
+
+
+
+
+
+
+	private void Student_FormClosed(object sender, FormClosedEventArgs e)
+	{
+	  Login login = new Login();
+	  login.Show();
+	}
+
+	private void adminBindingSource_CurrentChanged(object sender, EventArgs e)
+	{
+
+	}
   }
 }
