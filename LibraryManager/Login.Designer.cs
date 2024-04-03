@@ -38,7 +38,7 @@
 	  // 
 	  label1.AutoSize = true;
 	  label1.Font = new Font("Cambria", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-	  label1.Location = new Point(166, 25);
+	  label1.Location = new Point(133, 9);
 	  label1.Name = "label1";
 	  label1.Size = new Size(67, 23);
 	  label1.TabIndex = 0;
@@ -46,11 +46,11 @@
 	  // 
 	  // btn_admin_page
 	  // 
-	  btn_admin_page.Location = new Point(142, 51);
+	  btn_admin_page.Location = new Point(100, 35);
 	  btn_admin_page.Name = "btn_admin_page";
-	  btn_admin_page.Size = new Size(114, 23);
+	  btn_admin_page.Size = new Size(143, 49);
 	  btn_admin_page.TabIndex = 1;
-	  btn_admin_page.Text = "Go to Admin page";
+	  btn_admin_page.Text = "Go to Admin Page";
 	  btn_admin_page.UseVisualStyleBackColor = true;
 	  btn_admin_page.Click += btn_admin_page_Click;
 	  // 
@@ -58,7 +58,7 @@
 	  // 
 	  label2.AutoSize = true;
 	  label2.Font = new Font("Cambria", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-	  label2.Location = new Point(166, 165);
+	  label2.Location = new Point(133, 132);
 	  label2.Name = "label2";
 	  label2.Size = new Size(77, 23);
 	  label2.TabIndex = 2;
@@ -66,9 +66,9 @@
 	  // 
 	  // btn_student_page
 	  // 
-	  btn_student_page.Location = new Point(142, 191);
+	  btn_student_page.Location = new Point(100, 158);
 	  btn_student_page.Name = "btn_student_page";
-	  btn_student_page.Size = new Size(121, 23);
+	  btn_student_page.Size = new Size(143, 47);
 	  btn_student_page.TabIndex = 3;
 	  btn_student_page.Text = "Go to Student Page";
 	  btn_student_page.UseVisualStyleBackColor = true;
@@ -78,7 +78,7 @@
 	  // 
 	  AutoScaleDimensions = new SizeF(7F, 15F);
 	  AutoScaleMode = AutoScaleMode.Font;
-	  ClientSize = new Size(407, 269);
+	  ClientSize = new Size(340, 245);
 	  Controls.Add(btn_student_page);
 	  Controls.Add(label2);
 	  Controls.Add(btn_admin_page);
@@ -86,6 +86,7 @@
 	  Name = "Login";
 	  StartPosition = FormStartPosition.CenterScreen;
 	  Text = "Login";
+	  FormClosing += Login_FormClosing;
 	  ResumeLayout(false);
 	  PerformLayout();
 	}

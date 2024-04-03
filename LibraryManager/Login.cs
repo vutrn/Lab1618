@@ -11,7 +11,7 @@ namespace LibraryManager
 
 	private void btn_admin_page_Click(object sender, EventArgs e)
 	{
-	  //this.Hide();
+	  this.Hide();
 
 	  Admin admin = new Admin();
 	  admin.Show();
@@ -31,5 +31,9 @@ namespace LibraryManager
 
 	}
 
+	private void Login_FormClosing(object sender, FormClosingEventArgs e)
+	{
+	  Application.Exit();
+	}
   }
 }

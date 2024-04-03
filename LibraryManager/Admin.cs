@@ -26,11 +26,11 @@ namespace LibraryManager
 	  SqlCommand cmd = conn.CreateCommand();
 	  cmd.CommandType = CommandType.Text;
 	  cmd.CommandText = "SELECT " +
-							"book_id AS [Book ID], " +
+							"book_id AS [ID], " +
 							"book_name AS [Title], " +
 							"author_name AS [Author], " +
 							"genre_name AS [Genre], " +
-							"FORMAT(publication_date, 'MM/dd/yyyy') AS [Publish Date], " +
+							"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
 							"isBorrowed AS [Borrowed?] " + 
 						"FROM book ORDER BY book_id DESC";
 	  cmd.ExecuteNonQuery();
@@ -63,7 +63,7 @@ namespace LibraryManager
 	  {
 		try
 		{
-		  string currentDate = DateTime.Now.ToString("dd/MM/yyyy"); // Get current date and time
+		  string currentDate = DateTime.Now.ToString("yyyy/MM/dd"); // Get current date and time
 
 		  string query = $"INSERT INTO book (book_name, author_name, genre_name, isBorrowed, publication_date) " +
 						 $"VALUES('{tb_book_name.Text}', '{tb_author_name.Text}', '{tb_genre_name.Text}', '{cb_isBorrowed.Checked}', '{currentDate}')";
@@ -182,9 +182,5 @@ namespace LibraryManager
 	  }
 	}
 
-	private void tb_book_name_Enter(object sender, EventArgs e)
-	{
-	  btn_create_book_Click(sender, e);
-	}
   }
 }
