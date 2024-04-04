@@ -30,10 +30,11 @@
 	{
 	  tabControl1 = new TabControl();
 	  tp_book = new TabPage();
-	  panel1 = new Panel();
+	  pn_book_table = new Panel();
 	  lb_book_list = new Label();
 	  dgv_book_list = new DataGridView();
 	  lb_genre_name = new Panel();
+	  btn_reset = new Button();
 	  cb_isBorrowed = new CheckBox();
 	  tb_book_id = new TextBox();
 	  lb_book_id = new Label();
@@ -47,11 +48,25 @@
 	  tb_author_name = new TextBox();
 	  tb_book_name = new TextBox();
 	  tp_student = new TabPage();
+	  btn_remove_std = new Button();
+	  panel1 = new Panel();
+	  tb_std_id = new TextBox();
+	  dgv_std_list = new DataGridView();
+	  label2 = new Label();
+	  pn_student_table = new Panel();
+	  btn_refresh = new Button();
+	  label1 = new Label();
+	  dgv_borrowed_book = new DataGridView();
 	  tabControl1.SuspendLayout();
 	  tp_book.SuspendLayout();
-	  panel1.SuspendLayout();
+	  pn_book_table.SuspendLayout();
 	  ((System.ComponentModel.ISupportInitialize)dgv_book_list).BeginInit();
 	  lb_genre_name.SuspendLayout();
+	  tp_student.SuspendLayout();
+	  panel1.SuspendLayout();
+	  ((System.ComponentModel.ISupportInitialize)dgv_std_list).BeginInit();
+	  pn_student_table.SuspendLayout();
+	  ((System.ComponentModel.ISupportInitialize)dgv_borrowed_book).BeginInit();
 	  SuspendLayout();
 	  // 
 	  // tabControl1
@@ -67,7 +82,7 @@
 	  // 
 	  // tp_book
 	  // 
-	  tp_book.Controls.Add(panel1);
+	  tp_book.Controls.Add(pn_book_table);
 	  tp_book.Controls.Add(lb_genre_name);
 	  tp_book.Location = new Point(4, 24);
 	  tp_book.Name = "tp_book";
@@ -77,15 +92,15 @@
 	  tp_book.Text = "Book Lists";
 	  tp_book.UseVisualStyleBackColor = true;
 	  // 
-	  // panel1
+	  // pn_book_table
 	  // 
-	  panel1.Controls.Add(lb_book_list);
-	  panel1.Controls.Add(dgv_book_list);
-	  panel1.Dock = DockStyle.Fill;
-	  panel1.Location = new Point(3, 3);
-	  panel1.Name = "panel1";
-	  panel1.Size = new Size(623, 416);
-	  panel1.TabIndex = 2;
+	  pn_book_table.Controls.Add(lb_book_list);
+	  pn_book_table.Controls.Add(dgv_book_list);
+	  pn_book_table.Dock = DockStyle.Fill;
+	  pn_book_table.Location = new Point(3, 3);
+	  pn_book_table.Name = "pn_book_table";
+	  pn_book_table.Size = new Size(623, 416);
+	  pn_book_table.TabIndex = 2;
 	  // 
 	  // lb_book_list
 	  // 
@@ -93,24 +108,25 @@
 	  lb_book_list.Font = new Font("Cambria", 20.25F, FontStyle.Underline, GraphicsUnit.Point, 0);
 	  lb_book_list.Location = new Point(5, 0);
 	  lb_book_list.Name = "lb_book_list";
-	  lb_book_list.Size = new Size(122, 32);
+	  lb_book_list.Size = new Size(134, 32);
 	  lb_book_list.TabIndex = 7;
-	  lb_book_list.Text = "Book List";
+	  lb_book_list.Text = "Book Lists";
 	  // 
 	  // dgv_book_list
 	  // 
 	  dgv_book_list.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 	  dgv_book_list.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 	  dgv_book_list.Dock = DockStyle.Bottom;
-	  dgv_book_list.Location = new Point(0, 48);
+	  dgv_book_list.Location = new Point(0, 35);
 	  dgv_book_list.Name = "dgv_book_list";
 	  dgv_book_list.ReadOnly = true;
-	  dgv_book_list.Size = new Size(623, 368);
+	  dgv_book_list.Size = new Size(623, 381);
 	  dgv_book_list.TabIndex = 2;
 	  dgv_book_list.CellClick += dgv_book_list_CellClick;
 	  // 
 	  // lb_genre_name
 	  // 
+	  lb_genre_name.Controls.Add(btn_reset);
 	  lb_genre_name.Controls.Add(cb_isBorrowed);
 	  lb_genre_name.Controls.Add(tb_book_id);
 	  lb_genre_name.Controls.Add(lb_book_id);
@@ -131,6 +147,19 @@
 	  lb_genre_name.Size = new Size(300, 416);
 	  lb_genre_name.TabIndex = 1;
 	  // 
+	  // btn_reset
+	  // 
+	  btn_reset.BackColor = Color.Honeydew;
+	  btn_reset.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+	  btn_reset.ForeColor = Color.Red;
+	  btn_reset.Location = new Point(214, 8);
+	  btn_reset.Name = "btn_reset";
+	  btn_reset.Size = new Size(81, 33);
+	  btn_reset.TabIndex = 14;
+	  btn_reset.Text = "Reset";
+	  btn_reset.UseVisualStyleBackColor = false;
+	  btn_reset.Click += btn_reset_Click;
+	  // 
 	  // cb_isBorrowed
 	  // 
 	  cb_isBorrowed.AutoSize = true;
@@ -144,6 +173,7 @@
 	  // tb_book_id
 	  // 
 	  tb_book_id.Cursor = Cursors.No;
+	  tb_book_id.ForeColor = Color.Red;
 	  tb_book_id.Location = new Point(87, 45);
 	  tb_book_id.Name = "tb_book_id";
 	  tb_book_id.ReadOnly = true;
@@ -175,7 +205,7 @@
 	  // 
 	  // btn_update_book
 	  // 
-	  btn_update_book.BackColor = Color.Olive;
+	  btn_update_book.BackColor = Color.Gold;
 	  btn_update_book.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
 	  btn_update_book.ForeColor = SystemColors.ControlLightLight;
 	  btn_update_book.Location = new Point(109, 213);
@@ -255,6 +285,9 @@
 	  // 
 	  // tp_student
 	  // 
+	  tp_student.Controls.Add(btn_remove_std);
+	  tp_student.Controls.Add(panel1);
+	  tp_student.Controls.Add(pn_student_table);
 	  tp_student.Location = new Point(4, 24);
 	  tp_student.Name = "tp_student";
 	  tp_student.Padding = new Padding(3);
@@ -262,6 +295,103 @@
 	  tp_student.TabIndex = 1;
 	  tp_student.Text = "Student Lists";
 	  tp_student.UseVisualStyleBackColor = true;
+	  // 
+	  // btn_remove_std
+	  // 
+	  btn_remove_std.BackColor = Color.Crimson;
+	  btn_remove_std.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+	  btn_remove_std.ForeColor = SystemColors.ControlLightLight;
+	  btn_remove_std.Location = new Point(441, 259);
+	  btn_remove_std.Name = "btn_remove_std";
+	  btn_remove_std.Size = new Size(128, 33);
+	  btn_remove_std.TabIndex = 10;
+	  btn_remove_std.Text = "Remove Student";
+	  btn_remove_std.UseVisualStyleBackColor = false;
+	  btn_remove_std.Click += btn_remove_std_Click;
+	  // 
+	  // panel1
+	  // 
+	  panel1.Controls.Add(tb_std_id);
+	  panel1.Controls.Add(dgv_std_list);
+	  panel1.Controls.Add(label2);
+	  panel1.Location = new Point(3, 224);
+	  panel1.Name = "panel1";
+	  panel1.Size = new Size(432, 192);
+	  panel1.TabIndex = 1;
+	  // 
+	  // tb_std_id
+	  // 
+	  tb_std_id.Location = new Point(168, 9);
+	  tb_std_id.Name = "tb_std_id";
+	  tb_std_id.Size = new Size(49, 23);
+	  tb_std_id.TabIndex = 10;
+	  tb_std_id.Visible = false;
+	  // 
+	  // dgv_std_list
+	  // 
+	  dgv_std_list.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+	  dgv_std_list.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+	  dgv_std_list.Dock = DockStyle.Bottom;
+	  dgv_std_list.Location = new Point(0, 35);
+	  dgv_std_list.Name = "dgv_std_list";
+	  dgv_std_list.ReadOnly = true;
+	  dgv_std_list.Size = new Size(432, 157);
+	  dgv_std_list.TabIndex = 2;
+	  dgv_std_list.CellClick += dgv_std_list_CellClick;
+	  // 
+	  // label2
+	  // 
+	  label2.AutoSize = true;
+	  label2.Font = new Font("Cambria", 20.25F, FontStyle.Underline, GraphicsUnit.Point, 0);
+	  label2.Location = new Point(5, 0);
+	  label2.Name = "label2";
+	  label2.Size = new Size(164, 32);
+	  label2.TabIndex = 9;
+	  label2.Text = "Student Lists";
+	  // 
+	  // pn_student_table
+	  // 
+	  pn_student_table.Controls.Add(btn_refresh);
+	  pn_student_table.Controls.Add(label1);
+	  pn_student_table.Controls.Add(dgv_borrowed_book);
+	  pn_student_table.Location = new Point(3, 6);
+	  pn_student_table.Name = "pn_student_table";
+	  pn_student_table.Size = new Size(918, 212);
+	  pn_student_table.TabIndex = 0;
+	  // 
+	  // btn_refresh
+	  // 
+	  btn_refresh.BackColor = Color.RoyalBlue;
+	  btn_refresh.Font = new Font("Cambria", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+	  btn_refresh.ForeColor = SystemColors.ControlLightLight;
+	  btn_refresh.Location = new Point(216, -1);
+	  btn_refresh.Name = "btn_refresh";
+	  btn_refresh.Size = new Size(71, 33);
+	  btn_refresh.TabIndex = 11;
+	  btn_refresh.Text = "Refresh";
+	  btn_refresh.UseVisualStyleBackColor = false;
+	  btn_refresh.Click += btn_refresh_Click;
+	  // 
+	  // label1
+	  // 
+	  label1.AutoSize = true;
+	  label1.Font = new Font("Cambria", 20.25F, FontStyle.Underline, GraphicsUnit.Point, 0);
+	  label1.Location = new Point(3, 0);
+	  label1.Name = "label1";
+	  label1.Size = new Size(207, 32);
+	  label1.TabIndex = 8;
+	  label1.Text = "Borrowed Books";
+	  // 
+	  // dgv_borrowed_book
+	  // 
+	  dgv_borrowed_book.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+	  dgv_borrowed_book.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+	  dgv_borrowed_book.Dock = DockStyle.Bottom;
+	  dgv_borrowed_book.Location = new Point(0, 35);
+	  dgv_borrowed_book.Name = "dgv_borrowed_book";
+	  dgv_borrowed_book.ReadOnly = true;
+	  dgv_borrowed_book.Size = new Size(918, 177);
+	  dgv_borrowed_book.TabIndex = 0;
 	  // 
 	  // Admin
 	  // 
@@ -276,11 +406,18 @@
 	  Load += Admin_Load;
 	  tabControl1.ResumeLayout(false);
 	  tp_book.ResumeLayout(false);
-	  panel1.ResumeLayout(false);
-	  panel1.PerformLayout();
+	  pn_book_table.ResumeLayout(false);
+	  pn_book_table.PerformLayout();
 	  ((System.ComponentModel.ISupportInitialize)dgv_book_list).EndInit();
 	  lb_genre_name.ResumeLayout(false);
 	  lb_genre_name.PerformLayout();
+	  tp_student.ResumeLayout(false);
+	  panel1.ResumeLayout(false);
+	  panel1.PerformLayout();
+	  ((System.ComponentModel.ISupportInitialize)dgv_std_list).EndInit();
+	  pn_student_table.ResumeLayout(false);
+	  pn_student_table.PerformLayout();
+	  ((System.ComponentModel.ISupportInitialize)dgv_borrowed_book).EndInit();
 	  ResumeLayout(false);
 	}
 
@@ -298,12 +435,23 @@
 	private TextBox tb_author_name;
 	private DataGridView dgv_book_list;
 	private Button btn_create_book;
-	private Panel panel1;
+	private Panel pn_book_table;
 	private Label lb_book_list;
 	private Button btn_delete_book;
 	private Button btn_update_book;
 	private Label lb_book_id;
 	private TextBox tb_book_id;
 	private CheckBox cb_isBorrowed;
+	private Button btn_reset;
+	private Panel pn;
+	private DataGridView dgv_borrowed_book;
+	private Panel pn_student_table;
+	private Label label1;
+	private Panel panel1;
+	private DataGridView dgv_std_list;
+	private Label label2;
+	private Button btn_remove_std;
+	private TextBox tb_std_id;
+	private Button btn_refresh;
   }
 }

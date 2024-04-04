@@ -57,21 +57,6 @@ namespace LibraryManager
 	  DisplayData();
 	}
 
-	private void Student_FormClosed(object sender, FormClosedEventArgs e)
-	{
-	  Login login = new Login();
-	  login.Show();
-	}
-
-	private void Student_Load(object sender, EventArgs e)
-	{
-	  DisplayData();
-	}
-
-	private void btn_reset_Click(object sender, EventArgs e)
-	{
-	  ClearData();
-	}
 
 	private void dgv_book_list_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 	{
@@ -108,7 +93,6 @@ namespace LibraryManager
 		return;
 	  }
 
-
 	  try
 	  {
 		foreach (DataGridViewRow row in dgv_book_cart.Rows)
@@ -119,13 +103,13 @@ namespace LibraryManager
 			return; // Stop further execution
 		  }
 		}
+		conn.Open();
 		// Insert student information into the database
-		string insertStudentQuery = "INSERT INTO Student (std_name, std_gmail, std_phone_number) " +
+		string insertQuery = "INSERT INTO Student (std_name, std_gmail, std_phone_number) " +
 									$"VALUES ('{tb_std_name.Text}', '{tb_std_gmail.Text}', '{tb_std_phone_number.Text}');" +
 									$"SELECT SCOPE_IDENTITY();"; // Retrieve the inserted student's ID";
 
-		SqlCommand insertStudentCmd = new SqlCommand(insertStudentQuery, conn);
-		conn.Open();
+		SqlCommand insertStudentCmd = new SqlCommand(insertQuery, conn);
 		insertStudentCmd.ExecuteNonQuery();
 		//conn.Close();
 
@@ -135,14 +119,15 @@ namespace LibraryManager
 		//conn.Open();
 		int studentId = Convert.ToInt32(getStudentIdCmd.ExecuteScalar());
 		conn.Close();
+		// -1 to avoid reaching the bottom of the datagridview that occur error
 		for (int i = 0; i < dgv_book_cart.Rows.Count - 1; i++)
 		{
 		  DataGridViewRow row = dgv_book_cart.Rows[i];
 		  string bookId = row.Cells[0].Value.ToString();
 
-		  string updateIsBorrowedQuery = $"UPDATE book " +
-											$"SET isBorrowed = 1, std_id ={studentId}" +
-										 $"WHERE book_id = {bookId};";
+		  string updateIsBorrowedQuery = "UPDATE book " +
+									    $"SET isBorrowed = 1, std_id ={studentId}" +
+									    $"WHERE book_id = {bookId};";
 		  SqlCommand updateIsBorrowedCmd = new SqlCommand(updateIsBorrowedQuery, conn);
 		  conn.Open();
 		  updateIsBorrowedCmd.ExecuteNonQuery();
@@ -167,6 +152,159 @@ namespace LibraryManager
 		// Remove the selected row
 		dgv_book_cart.Rows.RemoveAt(e.RowIndex);
 	  }
+	}
+
+	//SEARCH FUNCTION ----------------------------------------------------------------- 
+	
+	private void btn_title_filter_Click(object sender, EventArgs e)
+	{
+	  conn.Open();
+	  string query = "SELECT " +
+							"book_id AS [ID], " +
+							"book_name AS [Title], " +
+							"author_name AS [Author], " +
+							"genre_name AS [Genre], " +
+							"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
+							"isBorrowed AS [Borrowed?] " +
+						"FROM Book " +
+						$"WHERE book_name LIKE '%{tb_title.Text}%' " +
+						"ORDER BY book_id DESC ";
+	  SqlCommand cmd = new SqlCommand(query, conn);
+	  DataTable dt = new DataTable();
+	  SqlDataAdapter da = new SqlDataAdapter(cmd);
+	  da.Fill(dt);
+	  dgv_book_list.DataSource = dt;
+	  conn.Close();
+	}
+
+	private void btn_author_filter_Click(object sender, EventArgs e)
+	{
+	  conn.Open();
+	  string query = "SELECT " +
+						  "book_id AS [ID], " +
+						  "book_name AS [Title], " +
+						  "author_name AS [Author], " +
+						  "genre_name AS [Genre], " +
+						  "FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
+						  "isBorrowed AS [Borrowed?] " +
+					  "FROM Book " +
+					  $"WHERE author_name LIKE '%{tb_author.Text}%' " +
+					  "ORDER BY book_id DESC ";
+	  SqlCommand cmd = new SqlCommand(query, conn);
+	  DataTable dt = new DataTable();
+	  SqlDataAdapter da = new SqlDataAdapter(cmd);
+	  da.Fill(dt);
+	  dgv_book_list.DataSource = dt;
+	  conn.Close();
+	}
+
+	private void btn_genre_filter_Click(object sender, EventArgs e)
+	{
+	  conn.Open();
+	  string query = "SELECT " +
+						  "book_id AS [ID], " +
+						  "book_name AS [Title], " +
+						  "author_name AS [Author], " +
+						  "genre_name AS [Genre], " +
+						  "FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
+						  "isBorrowed AS [Borrowed?] " +
+					  "FROM Book " +
+					  $"WHERE genre_name LIKE '%{tb_genre.Text}%' " +
+					  "ORDER BY book_id DESC ";
+	  SqlCommand cmd = new SqlCommand(query, conn);
+	  DataTable dt = new DataTable();
+	  SqlDataAdapter da = new SqlDataAdapter(cmd);
+	  da.Fill(dt);
+	  dgv_book_list.DataSource = dt;
+	  conn.Close();
+
+	}
+
+	private void btn_date_filter_Click(object sender, EventArgs e)
+	{
+	  conn.Open();
+	  string query = "SELECT " +
+						  "book_id AS [ID], " +
+						  "book_name AS [Title], " +
+						  "author_name AS [Author], " +
+						  "genre_name AS [Genre], " +
+						  "FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
+						  "isBorrowed AS [Borrowed?] " +
+					  "FROM Book " +
+					  $"WHERE publication_date = '{dtp_date_filter.Value.ToString("yyyy/MM/dd")}' " +
+					  "ORDER BY book_id DESC ";
+	  SqlCommand cmd = new SqlCommand(query, conn);
+	  DataTable dt = new DataTable();
+	  SqlDataAdapter da = new SqlDataAdapter(cmd);
+	  da.Fill(dt);
+	  dgv_book_list.DataSource = dt;
+	  conn.Close();
+
+	}
+
+	private void rb_borrowed_CheckedChanged(object sender, EventArgs e)
+	{
+	  if (rb_borrowed.Checked)
+	  {
+		conn.Open();
+		string query = "SELECT " +
+							"book_id AS [ID], " +
+							"book_name AS [Title], " +
+							"author_name AS [Author], " +
+							"genre_name AS [Genre], " +
+							"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
+							"isBorrowed AS [Borrowed?] " +
+						"FROM Book " +
+						"WHERE isBorrowed = 1 " +
+						"ORDER BY book_id DESC ";
+		SqlCommand cmd = new SqlCommand(query, conn);
+		DataTable dt = new DataTable();
+		SqlDataAdapter da = new SqlDataAdapter(cmd);
+		da.Fill(dt);
+		dgv_book_list.DataSource = dt;
+		conn.Close();
+	  }
+
+	}
+
+	private void rb_not_borrowed_CheckedChanged(object sender, EventArgs e)
+	{
+	  if (rb_not_borrowed.Checked)
+	  {
+		conn.Open();
+		string query = "SELECT " +
+							"book_id AS [ID], " +
+							"book_name AS [Title], " +
+							"author_name AS [Author], " +
+							"genre_name AS [Genre], " +
+							"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
+							"isBorrowed AS [Borrowed?] " +
+						"FROM Book " +
+						"WHERE isBorrowed = 0 " +
+						"ORDER BY book_id DESC ";
+		SqlCommand cmd = new SqlCommand(query, conn);
+		DataTable dt = new DataTable();
+		SqlDataAdapter da = new SqlDataAdapter(cmd);
+		da.Fill(dt);
+		dgv_book_list.DataSource = dt;
+		conn.Close();
+	  }
+
+	}
+	private void Student_FormClosed(object sender, FormClosedEventArgs e)
+	{
+	  Login login = new Login();
+	  login.Show();
+	}
+
+	private void Student_Load(object sender, EventArgs e)
+	{
+	  DisplayData();
+	}
+
+	private void btn_reset_Click(object sender, EventArgs e)
+	{
+	  ClearData();
 	}
   }
 }

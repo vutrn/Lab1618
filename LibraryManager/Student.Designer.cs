@@ -58,6 +58,7 @@
 	  col_date = new DataGridViewTextBoxColumn();
 	  col_isborrowed = new DataGridViewTextBoxColumn();
 	  lb_book_cart = new Label();
+	  label1 = new Label();
 	  ((System.ComponentModel.ISupportInitialize)dgv_book_list).BeginInit();
 	  pn_table_side.SuspendLayout();
 	  pn_control_side.SuspendLayout();
@@ -69,6 +70,7 @@
 	  // 
 	  dgv_book_list.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 	  dgv_book_list.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+	  dgv_book_list.Cursor = Cursors.Hand;
 	  dgv_book_list.Dock = DockStyle.Fill;
 	  dgv_book_list.Location = new Point(0, 0);
 	  dgv_book_list.Name = "dgv_book_list";
@@ -87,6 +89,7 @@
 	  // 
 	  // pn_control_side
 	  // 
+	  pn_control_side.Controls.Add(label1);
 	  pn_control_side.Controls.Add(dtp_date_filter);
 	  pn_control_side.Controls.Add(tb_genre);
 	  pn_control_side.Controls.Add(tb_author);
@@ -147,7 +150,7 @@
 	  btn_reset.Cursor = Cursors.Hand;
 	  btn_reset.Font = new Font("Cambria", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
 	  btn_reset.ForeColor = Color.Red;
-	  btn_reset.Location = new Point(3, 3);
+	  btn_reset.Location = new Point(312, 12);
 	  btn_reset.Name = "btn_reset";
 	  btn_reset.Size = new Size(54, 39);
 	  btn_reset.TabIndex = 15;
@@ -174,6 +177,7 @@
 	  rb_borrowed.TabStop = true;
 	  rb_borrowed.Text = "Borrowed";
 	  rb_borrowed.UseVisualStyleBackColor = true;
+	  rb_borrowed.CheckedChanged += rb_borrowed_CheckedChanged;
 	  // 
 	  // rb_not_borrowed
 	  // 
@@ -185,6 +189,7 @@
 	  rb_not_borrowed.TabStop = true;
 	  rb_not_borrowed.Text = "Not Borrowed yet";
 	  rb_not_borrowed.UseVisualStyleBackColor = true;
+	  rb_not_borrowed.CheckedChanged += rb_not_borrowed_CheckedChanged;
 	  // 
 	  // btn_date_filter
 	  // 
@@ -197,6 +202,7 @@
 	  btn_date_filter.Text = "Search by Date";
 	  btn_date_filter.TextAlign = ContentAlignment.MiddleLeft;
 	  btn_date_filter.UseVisualStyleBackColor = true;
+	  btn_date_filter.Click += btn_date_filter_Click;
 	  // 
 	  // btn_genre_filter
 	  // 
@@ -209,6 +215,7 @@
 	  btn_genre_filter.Text = "Search by Genre";
 	  btn_genre_filter.TextAlign = ContentAlignment.MiddleLeft;
 	  btn_genre_filter.UseVisualStyleBackColor = true;
+	  btn_genre_filter.Click += btn_genre_filter_Click;
 	  // 
 	  // btn_author_filter
 	  // 
@@ -221,6 +228,7 @@
 	  btn_author_filter.Text = "Search by Author";
 	  btn_author_filter.TextAlign = ContentAlignment.MiddleLeft;
 	  btn_author_filter.UseVisualStyleBackColor = true;
+	  btn_author_filter.Click += btn_author_filter_Click;
 	  // 
 	  // btn_title_filter
 	  // 
@@ -233,6 +241,7 @@
 	  btn_title_filter.Text = "Search by Title";
 	  btn_title_filter.TextAlign = ContentAlignment.MiddleLeft;
 	  btn_title_filter.UseVisualStyleBackColor = true;
+	  btn_title_filter.Click += btn_title_filter_Click;
 	  // 
 	  // btn_borrow_book
 	  // 
@@ -358,6 +367,16 @@
 	  lb_book_cart.TabIndex = 4;
 	  lb_book_cart.Text = "Your cart:";
 	  // 
+	  // label1
+	  // 
+	  label1.AutoSize = true;
+	  label1.ForeColor = Color.Red;
+	  label1.Location = new Point(22, 14);
+	  label1.Name = "label1";
+	  label1.Size = new Size(108, 15);
+	  label1.TabIndex = 20;
+	  label1.Text = "make enter event";
+	  // 
 	  // Student
 	  // 
 	  AutoScaleDimensions = new SizeF(7F, 15F);
@@ -415,5 +434,6 @@
 	private DataGridViewTextBoxColumn col_genre;
 	private DataGridViewTextBoxColumn col_date;
 	private DataGridViewTextBoxColumn col_isborrowed;
+	private Label label1;
   }
 }

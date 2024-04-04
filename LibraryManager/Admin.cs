@@ -20,7 +20,7 @@ namespace LibraryManager
 
 	SqlConnection conn = new SqlConnection("Data Source=DESKTOP-0T3CC97;Initial Catalog=1618LibraryManager;Integrated Security=True;Trust Server Certificate=True");
 
-	private void DisplayData()
+	private void DisplayAllData()
 	{
 	  conn.Open();
 	  SqlCommand cmd = conn.CreateCommand();
@@ -31,7 +31,7 @@ namespace LibraryManager
 							"author_name AS [Author], " +
 							"genre_name AS [Genre], " +
 							"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
-							"isBorrowed AS [Borrowed?] " + 
+							"isBorrowed AS [Borrowed?] " +
 						"FROM book ORDER BY book_id DESC";
 	  cmd.ExecuteNonQuery();
 	  DataTable dt = new DataTable();
@@ -41,18 +41,65 @@ namespace LibraryManager
 	  conn.Close();
 	}
 
+	private void DisplayBorrowedBook()
+	{
+	  conn.Open();
+	  SqlCommand cmd = conn.CreateCommand();
+	  cmd.CommandType = CommandType.Text;
+	  cmd.CommandText = "SELECT " +
+							"book_id AS [Book ID], " +
+							"book_name AS [Title], " +
+							"author_name AS [Author], " +
+							"genre_name AS [Genre], " +
+							"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
+							"Student.std_id AS [Student ID], " +
+							"Student.std_name AS [Student Name] " +
+						"FROM Book JOIN	Student	ON Book.std_id = Student.std_id " +
+						"WHERE Book.isBorrowed = 1 " +
+						"ORDER BY book_id DESC ";
+	  cmd.ExecuteNonQuery();
+	  DataTable dt = new DataTable();
+	  SqlDataAdapter da = new SqlDataAdapter(cmd);
+	  da.Fill(dt);
+	  dgv_borrowed_book.DataSource = dt;
+	  conn.Close();
+	}
+	private void DisplayStudent()
+	{
+	  conn.Open();
+	  SqlCommand cmd = conn.CreateCommand();
+	  cmd.CommandType = CommandType.Text;
+	  cmd.CommandText = "SELECT " +
+							"std_id AS [Student ID], " +
+							"std_name AS [Name], " +
+					  		"std_gmail AS [Gmail], " +
+							"std_phone_number AS [Phone Number] " +
+						"FROM Student " +
+						"ORDER BY std_id DESC";
+	  cmd.ExecuteNonQuery();
+	  DataTable dt = new DataTable();
+	  SqlDataAdapter da = new SqlDataAdapter(cmd);
+	  da.Fill(dt);
+	  dgv_std_list.DataSource = dt;
+	  conn.Close();
+	}
+
 	private void ClearData()
 	{
 	  tb_book_id.Text = "";
 	  tb_book_name.Text = "";
 	  tb_author_name.Text = "";
 	  tb_genre_name.Text = "";
+	  cb_isBorrowed.Checked = false;
 	}
 	private void Admin_Load(object sender, EventArgs e)
 	{
-	  DisplayData();
+	  DisplayAllData();
+	  DisplayBorrowedBook();
+	  DisplayStudent();
 	}
 
+	//----------------------------------- BOOK LIST -----------------------------------
 	private void btn_create_book_Click(object sender, EventArgs e)
 	{
 	  if (tb_book_name.Text == "" || tb_author_name.Text == "" || tb_genre_name.Text == "")
@@ -78,7 +125,7 @@ namespace LibraryManager
 		  MessageBox.Show("Added successfully");
 		  conn.Close();
 		  ClearData();
-		  DisplayData();
+		  DisplayAllData();
 
 		}
 		catch (Exception ex)
@@ -87,7 +134,6 @@ namespace LibraryManager
 		}
 	  }
 	}
-	// update query
 
 	private void btn_update_book_Click(object sender, EventArgs e)
 	{
@@ -109,7 +155,7 @@ namespace LibraryManager
 		  MessageBox.Show($"Update successfully");
 		  conn.Close();
 		  ClearData();
-		  DisplayData();
+		  DisplayAllData();
 
 		}
 		catch (Exception ex)
@@ -119,7 +165,7 @@ namespace LibraryManager
 	  }
 	  else
 	  {
-		MessageBox.Show("Please choose a row to update", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		MessageBox.Show("Please choose a row to update", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
 	  }
 	}
 
@@ -133,14 +179,23 @@ namespace LibraryManager
 		  {
 			conn.Close();
 		  }
-		  string query = $"DELETE FROM book WHERE book_id = '{tb_book_id.Text}'";
-		  SqlCommand cmd = new SqlCommand(query, conn);
-		  conn.Open();
-		  cmd.ExecuteNonQuery();
-		  MessageBox.Show("Delete successfully");
-		  conn.Close();
-		  ClearData();
-		  DisplayData();
+
+		  DialogResult dr = MessageBox.Show("Do you want to delete this item?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+		  if (dr == DialogResult.OK)
+		  {
+			string query = $"DELETE FROM book WHERE book_id = '{tb_book_id.Text}'";
+			SqlCommand cmd = new SqlCommand(query, conn);
+			conn.Open();
+			cmd.ExecuteNonQuery();
+			conn.Close();
+			ClearData();
+			DisplayAllData();
+		  }
+		  else if (dr == DialogResult.Cancel)
+		  {
+			return;
+		  }
 		}
 		catch (Exception ex)
 		{
@@ -151,11 +206,6 @@ namespace LibraryManager
 	  {
 		MessageBox.Show("Please choose a row to delete", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 	  }
-	}
-	private void Admin_FormClosed(object sender, FormClosedEventArgs e)
-	{
-	  Login login = new Login();
-	  login.Show();
 	}
 
 	private void dgv_book_list_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -182,5 +232,72 @@ namespace LibraryManager
 	  }
 	}
 
+	//----------------------------------- BORROWED BOOK LIST / STUDENT LIST -----------------------------------
+	private void btn_remove_std_Click(object sender, EventArgs e)
+	{
+	  if (tb_std_id.Text != "")
+	  {
+		try
+		{
+		  if (conn.State != ConnectionState.Closed)
+		  {
+			conn.Close();
+		  }
+
+		  DialogResult dr = MessageBox.Show($"Do you want to delete Student ID [{tb_std_id.Text}]?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+		  if (dr == DialogResult.OK)
+		  {
+			string query = $"DELETE FROM Student WHERE std_id = '{tb_std_id.Text}'";
+			SqlCommand cmd = new SqlCommand(query, conn);
+			conn.Open();
+			cmd.ExecuteNonQuery();
+			conn.Close();
+			ClearData();
+			DisplayAllData();
+		  }
+		  else if (dr == DialogResult.Cancel)
+		  {
+			return;
+		  }
+		}
+		catch (Exception ex)
+		{
+		  MessageBox.Show(ex.Message);
+		}
+	  }
+	  else
+	  {
+		MessageBox.Show("Please choose a row to delete", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+	  }
+	}
+
+	private void dgv_std_list_CellClick(object sender, DataGridViewCellEventArgs e)
+	{
+	  if (e.RowIndex >= 0)
+	  {
+		// Get the selected row data
+		DataGridViewRow row = dgv_std_list.Rows[e.RowIndex];
+		string StdId = row.Cells[0].Value.ToString();
+		tb_std_id.Text = StdId;
+	  }
+	}
+
+	private void Admin_FormClosed(object sender, FormClosedEventArgs e)
+	{
+	  Login login = new Login();
+	  login.Show();
+	}
+
+	private void btn_reset_Click(object sender, EventArgs e)
+	{
+	  ClearData();
+	}
+
+	private void btn_refresh_Click(object sender, EventArgs e)
+	{
+	  DisplayBorrowedBook();
+	  DisplayStudent();
+	}
   }
 }
