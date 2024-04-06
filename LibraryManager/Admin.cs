@@ -152,6 +152,11 @@ namespace LibraryManager
 		  {
 			conn.Close();
 		  }
+		  if (string.IsNullOrWhiteSpace(tb_book_name.Text) || string.IsNullOrWhiteSpace(tb_author_name.Text) || string.IsNullOrWhiteSpace(tb_genre_name.Text))
+		  {
+			MessageBox.Show("Missing Information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			return;
+		  }
 		  SqlCommand cmd = new SqlCommand(query, conn);
 		  conn.Open();
 		  cmd.ExecuteNonQuery();
@@ -168,7 +173,7 @@ namespace LibraryManager
 	  }
 	  else
 	  {
-		MessageBox.Show("Please choose a row to update", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+		MessageBox.Show("Please choose a row to update", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 	  }
 	}
 
