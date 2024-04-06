@@ -30,6 +30,7 @@
 	{
 	  dgv_book_list = new DataGridView();
 	  pn_table_side = new Panel();
+	  label1 = new Label();
 	  pn_control_side = new Panel();
 	  dtp_date_filter = new DateTimePicker();
 	  tb_genre = new TextBox();
@@ -58,7 +59,6 @@
 	  col_date = new DataGridViewTextBoxColumn();
 	  col_isborrowed = new DataGridViewTextBoxColumn();
 	  lb_book_cart = new Label();
-	  label1 = new Label();
 	  ((System.ComponentModel.ISupportInitialize)dgv_book_list).BeginInit();
 	  pn_table_side.SuspendLayout();
 	  pn_control_side.SuspendLayout();
@@ -68,28 +68,41 @@
 	  // 
 	  // dgv_book_list
 	  // 
+	  dgv_book_list.AllowUserToAddRows = false;
 	  dgv_book_list.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 	  dgv_book_list.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 	  dgv_book_list.Cursor = Cursors.Hand;
-	  dgv_book_list.Dock = DockStyle.Fill;
-	  dgv_book_list.Location = new Point(0, 0);
+	  dgv_book_list.Location = new Point(0, 33);
+	  dgv_book_list.MultiSelect = false;
 	  dgv_book_list.Name = "dgv_book_list";
 	  dgv_book_list.ReadOnly = true;
-	  dgv_book_list.Size = new Size(621, 299);
+	  dgv_book_list.Size = new Size(621, 266);
 	  dgv_book_list.TabIndex = 0;
+	  dgv_book_list.Tag = "";
 	  dgv_book_list.CellDoubleClick += dgv_book_list_CellDoubleClick;
 	  // 
 	  // pn_table_side
 	  // 
+	  pn_table_side.Controls.Add(label1);
 	  pn_table_side.Controls.Add(dgv_book_list);
 	  pn_table_side.Location = new Point(12, 12);
 	  pn_table_side.Name = "pn_table_side";
 	  pn_table_side.Size = new Size(621, 299);
 	  pn_table_side.TabIndex = 1;
 	  // 
+	  // label1
+	  // 
+	  label1.AutoSize = true;
+	  label1.Font = new Font("Cambria", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+	  label1.ForeColor = Color.Red;
+	  label1.Location = new Point(0, 12);
+	  label1.Name = "label1";
+	  label1.Size = new Size(219, 15);
+	  label1.TabIndex = 20;
+	  label1.Text = "Double click a book to add into cart";
+	  // 
 	  // pn_control_side
 	  // 
-	  pn_control_side.Controls.Add(label1);
 	  pn_control_side.Controls.Add(dtp_date_filter);
 	  pn_control_side.Controls.Add(tb_genre);
 	  pn_control_side.Controls.Add(tb_author);
@@ -121,29 +134,36 @@
 	  dtp_date_filter.Format = DateTimePickerFormat.Custom;
 	  dtp_date_filter.Location = new Point(144, 167);
 	  dtp_date_filter.Name = "dtp_date_filter";
-	  dtp_date_filter.Size = new Size(200, 23);
+	  dtp_date_filter.Size = new Size(124, 23);
 	  dtp_date_filter.TabIndex = 19;
+	  dtp_date_filter.KeyDown += dtp_date_filter_KeyDown;
 	  // 
 	  // tb_genre
 	  // 
 	  tb_genre.Location = new Point(144, 134);
 	  tb_genre.Name = "tb_genre";
+	  tb_genre.PlaceholderText = "Search genre";
 	  tb_genre.Size = new Size(222, 23);
 	  tb_genre.TabIndex = 18;
+	  tb_genre.KeyDown += tb_genre_KeyDown;
 	  // 
 	  // tb_author
 	  // 
 	  tb_author.Location = new Point(144, 98);
 	  tb_author.Name = "tb_author";
+	  tb_author.PlaceholderText = "Search author";
 	  tb_author.Size = new Size(222, 23);
 	  tb_author.TabIndex = 17;
+	  tb_author.KeyDown += tb_author_KeyDown;
 	  // 
 	  // tb_title
 	  // 
 	  tb_title.Location = new Point(144, 62);
 	  tb_title.Name = "tb_title";
+	  tb_title.PlaceholderText = "Search title";
 	  tb_title.Size = new Size(222, 23);
 	  tb_title.TabIndex = 16;
+	  tb_title.KeyDown += tb_title_KeyDown;
 	  // 
 	  // btn_reset
 	  // 
@@ -260,7 +280,7 @@
 	  // 
 	  lb_genre.AutoSize = true;
 	  lb_genre.Font = new Font("Cambria", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-	  lb_genre.Location = new Point(50, 326);
+	  lb_genre.Location = new Point(50, 324);
 	  lb_genre.Name = "lb_genre";
 	  lb_genre.Size = new Size(134, 16);
 	  lb_genre.TabIndex = 5;
@@ -289,10 +309,11 @@
 	  // tb_std_phone_number
 	  // 
 	  tb_std_phone_number.Cursor = Cursors.IBeam;
-	  tb_std_phone_number.Location = new Point(190, 323);
+	  tb_std_phone_number.Location = new Point(190, 321);
 	  tb_std_phone_number.Name = "tb_std_phone_number";
 	  tb_std_phone_number.Size = new Size(100, 23);
 	  tb_std_phone_number.TabIndex = 2;
+	  tb_std_phone_number.KeyDown += tb_std_phone_number_KeyDown;
 	  // 
 	  // tb_std_gmail
 	  // 
@@ -301,6 +322,7 @@
 	  tb_std_gmail.Name = "tb_std_gmail";
 	  tb_std_gmail.Size = new Size(100, 23);
 	  tb_std_gmail.TabIndex = 1;
+	  tb_std_gmail.KeyDown += tb_std_gmail_KeyDown;
 	  // 
 	  // tb_std_name
 	  // 
@@ -309,14 +331,19 @@
 	  tb_std_name.Name = "tb_std_name";
 	  tb_std_name.Size = new Size(100, 23);
 	  tb_std_name.TabIndex = 0;
+	  tb_std_name.KeyDown += tb_std_name_KeyDown;
 	  // 
 	  // dgv_book_cart
 	  // 
+	  dgv_book_cart.AllowUserToAddRows = false;
 	  dgv_book_cart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 	  dgv_book_cart.Columns.AddRange(new DataGridViewColumn[] { col_book_id, col_book_title, col_author, col_genre, col_date, col_isborrowed });
+	  dgv_book_cart.Cursor = Cursors.Hand;
 	  dgv_book_cart.Location = new Point(12, 345);
+	  dgv_book_cart.MultiSelect = false;
 	  dgv_book_cart.Name = "dgv_book_cart";
 	  dgv_book_cart.ReadOnly = true;
+	  dgv_book_cart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 	  dgv_book_cart.Size = new Size(621, 121);
 	  dgv_book_cart.TabIndex = 3;
 	  dgv_book_cart.CellDoubleClick += dgv_book_cart_CellDoubleClick;
@@ -367,16 +394,6 @@
 	  lb_book_cart.TabIndex = 4;
 	  lb_book_cart.Text = "Your cart:";
 	  // 
-	  // label1
-	  // 
-	  label1.AutoSize = true;
-	  label1.ForeColor = Color.Red;
-	  label1.Location = new Point(22, 14);
-	  label1.Name = "label1";
-	  label1.Size = new Size(108, 15);
-	  label1.TabIndex = 20;
-	  label1.Text = "make enter event";
-	  // 
 	  // Student
 	  // 
 	  AutoScaleDimensions = new SizeF(7F, 15F);
@@ -386,6 +403,7 @@
 	  Controls.Add(dgv_book_cart);
 	  Controls.Add(pn_control_side);
 	  Controls.Add(pn_table_side);
+	  KeyPreview = true;
 	  Name = "Student";
 	  StartPosition = FormStartPosition.CenterScreen;
 	  Text = "Student";
@@ -393,6 +411,7 @@
 	  Load += Student_Load;
 	  ((System.ComponentModel.ISupportInitialize)dgv_book_list).EndInit();
 	  pn_table_side.ResumeLayout(false);
+	  pn_table_side.PerformLayout();
 	  pn_control_side.ResumeLayout(false);
 	  pn_control_side.PerformLayout();
 	  pn_radiobtn.ResumeLayout(false);

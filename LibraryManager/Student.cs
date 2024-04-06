@@ -57,36 +57,15 @@ namespace LibraryManager
 	  DisplayData();
 	}
 
-
-	private void dgv_book_list_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-	{
-	  // Check if a valid row is double-clicked
-	  if (e.RowIndex >= 0)
-	  {
-		// Get the selected row
-		DataGridViewRow selectedRow = dgv_book_list.Rows[e.RowIndex];
-
-		// Extract data from the selected row
-		string bookId = selectedRow.Cells[0].Value.ToString();
-		string title = selectedRow.Cells[1].Value.ToString();
-		string author = selectedRow.Cells[2].Value.ToString();
-		string genre = selectedRow.Cells[3].Value.ToString();
-		string publishDate = selectedRow.Cells[4].Value.ToString();
-		bool isBorrowed = (bool)selectedRow.Cells[5].Value;
-
-		dgv_book_cart.Rows.Add(bookId, title, author, genre, publishDate, isBorrowed);
-	  }
-	}
-
 	private void btn_borrow_book_Click(object sender, EventArgs e)
 	{
-	  // Check if student information is provided
+	  // Check student information
 	  if (string.IsNullOrWhiteSpace(tb_std_name.Text) || string.IsNullOrWhiteSpace(tb_std_gmail.Text) || string.IsNullOrWhiteSpace(tb_std_phone_number.Text))
 	  {
 		MessageBox.Show("Please provide student information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		return;
 	  }
-	  // Check if there are books to borrow
+	  // Check number of books in cart
 	  if (dgv_book_cart.Rows.Count == 0)
 	  {
 		MessageBox.Show("No books to borrow.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -100,37 +79,35 @@ namespace LibraryManager
 		  if (Convert.ToBoolean(row.Cells[5].Value) == true && row.Cells[5].Value != null)
 		  {
 			MessageBox.Show("Warning: One or more books in the cart are already borrowed.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			return; // Stop further execution
+			return;
 		  }
 		}
 		conn.Open();
 		// Insert student information into the database
 		string insertQuery = "INSERT INTO Student (std_name, std_gmail, std_phone_number) " +
-									$"VALUES ('{tb_std_name.Text}', '{tb_std_gmail.Text}', '{tb_std_phone_number.Text}');" +
-									$"SELECT SCOPE_IDENTITY();"; // Retrieve the inserted student's ID";
+							$"VALUES ('{tb_std_name.Text}', '{tb_std_gmail.Text}', '{tb_std_phone_number.Text}');"; // Retrieve the inserted student's ID";
 
 		SqlCommand insertStudentCmd = new SqlCommand(insertQuery, conn);
 		insertStudentCmd.ExecuteNonQuery();
-		//conn.Close();
 
-		// Get the student ID of the inserted student
+
+		// Max - Get the highest id number, aka get the latest student information
 		string getStudentIdQuery = "SELECT MAX(std_id) FROM Student;";
 		SqlCommand getStudentIdCmd = new SqlCommand(getStudentIdQuery, conn);
-		//conn.Open();
+		//MessageBox.Show(Convert.ToString(getStudentIdCmd.ExecuteNonQuery()));
 		int studentId = Convert.ToInt32(getStudentIdCmd.ExecuteScalar());
 		conn.Close();
-		// -1 to avoid reaching the bottom of the datagridview that occur error
-		for (int i = 0; i < dgv_book_cart.Rows.Count - 1; i++)
-		{
-		  DataGridViewRow row = dgv_book_cart.Rows[i];
-		  string bookId = row.Cells[0].Value.ToString();
 
-		  string updateIsBorrowedQuery = "UPDATE book " +
-									    $"SET isBorrowed = 1, std_id ={studentId}" +
-									    $"WHERE book_id = {bookId};";
-		  SqlCommand updateIsBorrowedCmd = new SqlCommand(updateIsBorrowedQuery, conn);
+		//Insert each books into database
+		foreach (DataGridViewRow row in dgv_book_cart.Rows)
+		{
+		  string bookId = row.Cells[0].Value.ToString();
+		  string query = "UPDATE Book " +
+						$"SET isBorrowed = 1, std_id ={studentId}" +
+						$"WHERE book_id = {bookId};";
+		  SqlCommand cmd = new SqlCommand(query, conn);
 		  conn.Open();
-		  updateIsBorrowedCmd.ExecuteNonQuery();
+		  cmd.ExecuteNonQuery();
 		  conn.Close();
 		}
 
@@ -144,6 +121,35 @@ namespace LibraryManager
 	  }
 	}
 
+	private void dgv_book_list_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+	{
+	  try
+	  {
+
+		// Check if a valid row is double-clicked
+		if (e.RowIndex >= 0)
+		{
+		  // Get the selected row
+		  DataGridViewRow selectedRow = dgv_book_list.Rows[e.RowIndex];
+
+		  // Extract data from the selected row
+		  string bookId = selectedRow.Cells[0].Value.ToString();
+		  string title = selectedRow.Cells[1].Value.ToString();
+		  string author = selectedRow.Cells[2].Value.ToString();
+		  string genre = selectedRow.Cells[3].Value.ToString();
+		  string publishDate = selectedRow.Cells[4].Value.ToString();
+		  bool isBorrowed = (bool)selectedRow.Cells[5].Value;
+
+		  dgv_book_cart.Rows.Add(bookId, title, author, genre, publishDate, isBorrowed);
+		}
+	  }
+	  catch (Exception ex)
+	  {
+		MessageBox.Show(ex.Message);
+	  }
+
+	}
+
 	private void dgv_book_cart_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 	{
 	  // Check if a valid row is double-clicked
@@ -154,21 +160,21 @@ namespace LibraryManager
 	  }
 	}
 
-	//SEARCH FUNCTION ----------------------------------------------------------------- 
-	
+	//SEARCH FUNCTION ------------------------------------------------------------------------- 
+
 	private void btn_title_filter_Click(object sender, EventArgs e)
 	{
 	  conn.Open();
 	  string query = "SELECT " +
-							"book_id AS [ID], " +
-							"book_name AS [Title], " +
-							"author_name AS [Author], " +
-							"genre_name AS [Genre], " +
-							"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
-							"isBorrowed AS [Borrowed?] " +
-						"FROM Book " +
-						$"WHERE book_name LIKE '%{tb_title.Text}%' " +
-						"ORDER BY book_id DESC ";
+						"book_id AS [ID], " +
+						"book_name AS [Title], " +
+						"author_name AS [Author], " +
+						"genre_name AS [Genre], " +
+						"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
+						"isBorrowed AS [Borrowed?] " +
+					"FROM Book " +
+					$"WHERE book_name LIKE '%{tb_title.Text}%' " +
+					"ORDER BY book_id DESC ";
 	  SqlCommand cmd = new SqlCommand(query, conn);
 	  DataTable dt = new DataTable();
 	  SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -291,6 +297,54 @@ namespace LibraryManager
 	  }
 
 	}
+
+	//------------------------------------------------------------------------------------------ 
+
+	//KEY DOWN EVENT ------------------------------------------------------------------------- 
+	private void tb_title_KeyDown(object sender, KeyEventArgs e)
+	{
+	  if (e.KeyCode == Keys.Enter)
+		btn_title_filter_Click(sender, e);
+	}
+
+	private void tb_author_KeyDown(object sender, KeyEventArgs e)
+	{
+	  if (e.KeyCode == Keys.Enter)
+		btn_author_filter_Click(sender, e);
+	}
+
+	private void tb_genre_KeyDown(object sender, KeyEventArgs e)
+	{
+	  if (e.KeyCode == Keys.Enter)
+		btn_genre_filter_Click(sender, e);
+	}
+
+	private void dtp_date_filter_KeyDown(object sender, KeyEventArgs e)
+	{
+	  if (e.KeyCode == Keys.Enter)
+		btn_date_filter_Click(sender, e);
+	}
+
+	private void tb_std_name_KeyDown(object sender, KeyEventArgs e)
+	{
+	  if (e.KeyCode == Keys.Enter)
+		btn_borrow_book_Click(sender, e);
+	}
+
+	private void tb_std_gmail_KeyDown(object sender, KeyEventArgs e)
+	{
+	  if (e.KeyCode == Keys.Enter)
+		btn_borrow_book_Click(sender, e);
+	}
+
+	private void tb_std_phone_number_KeyDown(object sender, KeyEventArgs e)
+	{
+	  if (e.KeyCode == Keys.Enter)
+		btn_borrow_book_Click(sender, e);
+	}
+
+	//------------------------------------------------------------------------------------------ 
+
 	private void Student_FormClosed(object sender, FormClosedEventArgs e)
 	{
 	  Login login = new Login();

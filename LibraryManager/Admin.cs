@@ -64,6 +64,7 @@ namespace LibraryManager
 	  dgv_borrowed_book.DataSource = dt;
 	  conn.Close();
 	}
+
 	private void DisplayStudent()
 	{
 	  conn.Open();
@@ -92,6 +93,7 @@ namespace LibraryManager
 	  tb_genre_name.Text = "";
 	  cb_isBorrowed.Checked = false;
 	}
+
 	private void Admin_Load(object sender, EventArgs e)
 	{
 	  DisplayAllData();
@@ -143,7 +145,8 @@ namespace LibraryManager
 		{
 		  string query = $"UPDATE Book " +
 						 $"SET book_name = '{tb_book_name.Text}', author_name = '{tb_author_name.Text}', genre_name = '{tb_genre_name.Text}', " +
-						 $"isBorrowed = {(cb_isBorrowed.Checked ? 1 : 0)} " + // Set 1 if checked, 0 otherwise
+						 $"isBorrowed = {(cb_isBorrowed.Checked ? 1 : 0)}, " + // isBorrowed = 1 if checked = true (checkbox is marked)
+						 $"std_id = {(cb_isBorrowed.Checked ? "std_id" : "NULL")} " + // Set 1 if checked, 0 otherwise
 						 $"WHERE book_id = '{tb_book_id.Text}'";
 		  if (conn.State != ConnectionState.Closed)
 		  {
@@ -232,7 +235,7 @@ namespace LibraryManager
 	  }
 	}
 
-	//----------------------------------- BORROWED BOOK LIST / STUDENT LIST -----------------------------------
+	//----------------------------------- BORROWED BOOK LIST / STUDENT LIST -------------------------------
 	private void btn_remove_std_Click(object sender, EventArgs e)
 	{
 	  if (tb_std_id.Text != "")
@@ -254,7 +257,7 @@ namespace LibraryManager
 			cmd.ExecuteNonQuery();
 			conn.Close();
 			ClearData();
-			DisplayAllData();
+			DisplayStudent();
 		  }
 		  else if (dr == DialogResult.Cancel)
 		  {
@@ -283,6 +286,7 @@ namespace LibraryManager
 	  }
 	}
 
+	//-----------------------------------------------------------------------------------------------
 	private void Admin_FormClosed(object sender, FormClosedEventArgs e)
 	{
 	  Login login = new Login();

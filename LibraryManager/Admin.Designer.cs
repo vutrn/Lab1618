@@ -114,6 +114,7 @@
 	  // 
 	  // dgv_book_list
 	  // 
+	  dgv_book_list.AllowUserToAddRows = false;
 	  dgv_book_list.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 	  dgv_book_list.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 	  dgv_book_list.Dock = DockStyle.Bottom;
@@ -329,6 +330,7 @@
 	  // 
 	  // dgv_std_list
 	  // 
+	  dgv_std_list.AllowUserToAddRows = false;
 	  dgv_std_list.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 	  dgv_std_list.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 	  dgv_std_list.Dock = DockStyle.Bottom;
@@ -384,6 +386,7 @@
 	  // 
 	  // dgv_borrowed_book
 	  // 
+	  dgv_borrowed_book.AllowUserToAddRows = false;
 	  dgv_borrowed_book.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 	  dgv_borrowed_book.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 	  dgv_borrowed_book.Dock = DockStyle.Bottom;
