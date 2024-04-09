@@ -23,9 +23,7 @@ namespace LibraryManager
 	private void DisplayAllData()
 	{
 	  conn.Open();
-	  SqlCommand cmd = conn.CreateCommand();
-	  cmd.CommandType = CommandType.Text;
-	  cmd.CommandText = "SELECT " +
+	  string query = "SELECT " +
 							"book_id AS [ID], " +
 							"book_name AS [Title], " +
 							"author_name AS [Author], " +
@@ -33,9 +31,10 @@ namespace LibraryManager
 							"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
 							"isBorrowed AS [Borrowed?] " +
 						"FROM book ORDER BY book_id DESC";
+	  SqlCommand cmd = new SqlCommand(query, conn);
 	  cmd.ExecuteNonQuery();
-	  DataTable dt = new DataTable();
 	  SqlDataAdapter da = new SqlDataAdapter(cmd);
+	  DataTable dt = new DataTable();
 	  da.Fill(dt);
 	  dgv_book_list.DataSource = dt;
 	  conn.Close();
@@ -104,36 +103,28 @@ namespace LibraryManager
 	//----------------------------------- BOOK LIST -----------------------------------
 	private void btn_create_book_Click(object sender, EventArgs e)
 	{
-	  if (tb_book_name.Text == "" || tb_author_name.Text == "" || tb_genre_name.Text == "")
+	  try
 	  {
-		MessageBox.Show("Missing Information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-	  }
-	  else
-	  {
-		try
-		{
 		  string currentDate = DateTime.Now.ToString("yyyy/MM/dd"); // Get current date and time
 
 		  string query = $"INSERT INTO book (book_name, author_name, genre_name, isBorrowed, publication_date) " +
 						 $"VALUES('{tb_book_name.Text}', '{tb_author_name.Text}', '{tb_genre_name.Text}', '{cb_isBorrowed.Checked}', '{currentDate}')";
 
 		  if (conn.State != ConnectionState.Closed)
-		  {
-			conn.Close();
-		  }
-		  SqlCommand cmd = new SqlCommand(query, conn);
-		  conn.Open();
-		  cmd.ExecuteNonQuery();
-		  MessageBox.Show("Added successfully");
-		  conn.Close();
-		  ClearData();
-		  DisplayAllData();
-
-		}
-		catch (Exception ex)
 		{
-		  MessageBox.Show(ex.Message);
+		  conn.Close();
 		}
+		SqlCommand cmd = new SqlCommand(query, conn);
+		conn.Open();
+		cmd.ExecuteNonQuery();
+		MessageBox.Show("success");
+		conn.Close();
+		ClearData();
+		DisplayAllData();
+	  }
+	  catch (Exception ex)
+	  {
+		MessageBox.Show(ex.Message);
 	  }
 	}
 
@@ -143,20 +134,20 @@ namespace LibraryManager
 	  {
 		try
 		{
-		  string query = $"UPDATE Book " +
-						 $"SET book_name = '{tb_book_name.Text}', author_name = '{tb_author_name.Text}', genre_name = '{tb_genre_name.Text}', " +
-						 $"isBorrowed = {(cb_isBorrowed.Checked ? 1 : 0)}, " + // isBorrowed = 1 if checked = true (checkbox is marked)
-						 $"std_id = {(cb_isBorrowed.Checked ? "std_id" : "NULL")} " + // Set 1 if checked, 0 otherwise
-						 $"WHERE book_id = '{tb_book_id.Text}'";
-		  if (conn.State != ConnectionState.Closed)
-		  {
-			conn.Close();
-		  }
 		  if (string.IsNullOrWhiteSpace(tb_book_name.Text) || string.IsNullOrWhiteSpace(tb_author_name.Text) || string.IsNullOrWhiteSpace(tb_genre_name.Text))
 		  {
 			MessageBox.Show("Missing Information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			return;
 		  }
+		  if (conn.State != ConnectionState.Closed)
+		  {
+			conn.Close();
+		  }
+		  string query = $"UPDATE Book " +
+						 $"SET book_name = '{tb_book_name.Text}', author_name = '{tb_author_name.Text}', genre_name = '{tb_genre_name.Text}', " +
+						 $"isBorrowed = {(cb_isBorrowed.Checked ? 1 : 0)}, " + // isBorrowed = 1 if checked = true (checkbox is marked)
+						 $"std_id = {(cb_isBorrowed.Checked ? "std_id" : "NULL")} " + // Set 1 if checked, 0 otherwise
+						 $"WHERE book_id = '{tb_book_id.Text}'";
 		  SqlCommand cmd = new SqlCommand(query, conn);
 		  conn.Open();
 		  cmd.ExecuteNonQuery();

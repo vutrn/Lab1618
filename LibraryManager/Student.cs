@@ -16,7 +16,6 @@ namespace LibraryManager
 	public Student()
 	{
 	  InitializeComponent();
-
 	}
 
 	SqlConnection conn = new SqlConnection("Data Source=DESKTOP-0T3CC97;Initial Catalog=1618LibraryManager;Integrated Security=True;Trust Server Certificate=True");
@@ -24,9 +23,7 @@ namespace LibraryManager
 	private void DisplayData()
 	{
 	  conn.Open();
-	  SqlCommand cmd = conn.CreateCommand();
-	  //cmd.CommandType = CommandType.Text;
-	  cmd.CommandText = "SELECT " +
+	  string query = "SELECT " +
 							"book_id AS [ID], " +
 							"book_name AS [Title], " +
 							"author_name AS [Author], " +
@@ -34,9 +31,10 @@ namespace LibraryManager
 							"FORMAT(publication_date, 'dd/MM/yyyy') AS [Publish Date], " +
 							"isBorrowed AS [Borrowed?] " +
 						"FROM book ORDER BY book_id DESC";
-	  cmd.ExecuteNonQuery();
+	  //SqlCommand cmd = new SqlCommand(query, conn);
+	  //cmd.ExecuteNonQuery();
+	  SqlDataAdapter da = new SqlDataAdapter(query, conn);
 	  DataTable dt = new DataTable();
-	  SqlDataAdapter da = new SqlDataAdapter(cmd);
 	  da.Fill(dt);
 	  dgv_book_list.DataSource = dt;
 	  conn.Close();
@@ -76,9 +74,9 @@ namespace LibraryManager
 	  {
 		foreach (DataGridViewRow row in dgv_book_cart.Rows)
 		{
-		  if (Convert.ToBoolean(row.Cells[5].Value) == true && row.Cells[5].Value != null)
+		  if (Convert.ToBoolean(row.Cells[5].Value) == true)
 		  {
-			MessageBox.Show("Warning: One or more books in the cart are already borrowed.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			MessageBox.Show("Warning: One or more books in your cart are already borrowed.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			return;
 		  }
 		}
@@ -89,7 +87,6 @@ namespace LibraryManager
 
 		SqlCommand insertStudentCmd = new SqlCommand(insertQuery, conn);
 		insertStudentCmd.ExecuteNonQuery();
-
 
 		// Max - Get the highest id number, aka get the latest student information
 		string getStudentIdQuery = "SELECT MAX(std_id) FROM Student;";
@@ -147,7 +144,6 @@ namespace LibraryManager
 	  {
 		MessageBox.Show(ex.Message);
 	  }
-
 	}
 
 	private void dgv_book_cart_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -164,7 +160,7 @@ namespace LibraryManager
 
 	private void btn_title_filter_Click(object sender, EventArgs e)
 	{
-	  conn.Open();
+	  //conn.Open();
 	  string query = "SELECT " +
 						"book_id AS [ID], " +
 						"book_name AS [Title], " +
@@ -175,12 +171,12 @@ namespace LibraryManager
 					"FROM Book " +
 					$"WHERE book_name LIKE '%{tb_title.Text}%' " +
 					"ORDER BY book_id DESC ";
-	  SqlCommand cmd = new SqlCommand(query, conn);
+	  //SqlCommand cmd = new SqlCommand(query, conn);
+	  SqlDataAdapter da = new SqlDataAdapter(query, conn);
 	  DataTable dt = new DataTable();
-	  SqlDataAdapter da = new SqlDataAdapter(cmd);
 	  da.Fill(dt);
 	  dgv_book_list.DataSource = dt;
-	  conn.Close();
+	  //conn.Close();
 	}
 
 	private void btn_author_filter_Click(object sender, EventArgs e)

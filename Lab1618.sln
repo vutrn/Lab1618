@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab4", "Lab4\Lab4.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZooManagement", "ZooManagement\ZooManagement.csproj", "{C8BA0383-4F7C-4E22-A892-446C6AD7D885}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryManager", "LibraryManager\LibraryManager.csproj", "{58ACA784-8A3C-49C1-923D-75E3BED6902D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryManager", "LibraryManager\LibraryManager.csproj", "{58ACA784-8A3C-49C1-923D-75E3BED6902D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

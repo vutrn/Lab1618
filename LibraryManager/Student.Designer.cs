@@ -336,6 +336,7 @@
 	  // dgv_book_cart
 	  // 
 	  dgv_book_cart.AllowUserToAddRows = false;
+	  dgv_book_cart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 	  dgv_book_cart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 	  dgv_book_cart.Columns.AddRange(new DataGridViewColumn[] { col_book_id, col_book_title, col_author, col_genre, col_date, col_isborrowed });
 	  dgv_book_cart.Cursor = Cursors.Hand;
@@ -353,36 +354,42 @@
 	  col_book_id.HeaderText = "ID";
 	  col_book_id.Name = "col_book_id";
 	  col_book_id.ReadOnly = true;
+	  col_book_id.Width = 43;
 	  // 
 	  // col_book_title
 	  // 
 	  col_book_title.HeaderText = "Title";
 	  col_book_title.Name = "col_book_title";
 	  col_book_title.ReadOnly = true;
+	  col_book_title.Width = 54;
 	  // 
 	  // col_author
 	  // 
 	  col_author.HeaderText = "Author";
 	  col_author.Name = "col_author";
 	  col_author.ReadOnly = true;
+	  col_author.Width = 69;
 	  // 
 	  // col_genre
 	  // 
 	  col_genre.HeaderText = "Genre";
 	  col_genre.Name = "col_genre";
 	  col_genre.ReadOnly = true;
+	  col_genre.Width = 63;
 	  // 
 	  // col_date
 	  // 
 	  col_date.HeaderText = "Publish Date";
 	  col_date.Name = "col_date";
 	  col_date.ReadOnly = true;
+	  col_date.Width = 98;
 	  // 
 	  // col_isborrowed
 	  // 
 	  col_isborrowed.HeaderText = "Borrowed?";
 	  col_isborrowed.Name = "col_isborrowed";
 	  col_isborrowed.ReadOnly = true;
+	  col_isborrowed.Width = 88;
 	  // 
 	  // lb_book_cart
 	  // 
